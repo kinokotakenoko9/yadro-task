@@ -29,7 +29,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
   private readonly userService = inject(UserService);
   users: User[] = [];
   filteredUsers: User[] = [];

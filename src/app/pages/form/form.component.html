@@ -1,0 +1,4 @@
+@if (user | async; as currentUser) {
+<app-user-form [user]="currentUser" [mode]="'edit'" (formSubmitted)="formSubmitted($event)"
+    (formCancelled)="formCancelled()"></app-user-form>
+}
