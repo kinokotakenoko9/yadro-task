@@ -21,7 +21,7 @@
     </nz-flex>
 
     <nz-list nzBordered>
-        @for (user of filteredUsers; track user.id) {
+        @for (user of paginatedUsers; track user.id) {
         <nz-list-item>
             <ng-container>
                 <nz-list-item-meta>
@@ -44,4 +44,8 @@
         </nz-list-item>
         }
     </nz-list>
+
+    <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="filteredUsers.length" [nzPageSize]="pageSize"
+        (nzPageIndexChange)="onPageIndexChange($event)">
+    </nz-pagination>
 </nz-flex>
