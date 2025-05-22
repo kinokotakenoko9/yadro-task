@@ -1,0 +1,1 @@
+import{Qb as o,Rb as n,hc as p,sb as t}from"./chunk-26RAPLNY.js";var a=class r{static \u0275fac=function(e){return new(e||r)};static \u0275cmp=t({type:r,selectors:[["app-error404"]],decls:2,vars:0,template:function(e,s){e&1&&(o(0,"p"),p(1,"error 404"),n())},encapsulation:2})};export{a as Error404Component};
