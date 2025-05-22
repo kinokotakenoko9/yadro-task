@@ -1,0 +1,53 @@
+<form nz-form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <nz-form-item>
+        <nz-form-control [nzSpan]="14" [nzOffset]="6" [nzXs]="24">
+            <h2 nz-typography class="text-2xl font-bold mb-4 text-gray-800">
+                {{ mode === 'create' ? 'Create New User' : 'Edit User' }}
+            </h2>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" [nzRequired]="mode === 'edit' ? false : true">Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Input the user's name">
+            <input nz-input formControlName="name" placeholder="User Name" />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired="false">Email</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input formControlName="email" placeholder="Email Address" />
+            @if (email?.dirty && email?.errors?.['email']) {
+            <nz-form-text>Invalid Email format</nz-form-text>
+            }
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired="false">City</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input nz-input formControlName="city" placeholder="City" />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control [nzSpan]="14" [nzOffset]="6" [nzXs]="24">
+            <nz-flex nzGap="large">
+                <button nz-button nzType="primary"
+                    [disabled]="!userForm.valid || (mode === 'edit' && userForm.errors?.['noChanges'])">
+                    {{ mode === 'create' ? 'Create' : 'Save Changes' }}
+                </button>
+                <button nz-button (click)="onCancel($event)">Cancel</button>
+            </nz-flex>
+        </nz-form-control>
+    </nz-form-item>
+
+    @if (mode === 'edit' && userForm.errors?.['noChanges']) {
+    <nz-form-item>
+        <nz-form-control [nzSpan]="14" [nzOffset]="6" [nzXs]="24">
+            <nz-form-text nzRequired="true">At least one field must be changed to save</nz-form-text>
+        </nz-form-control>
+    </nz-form-item>
+    }
+</form>

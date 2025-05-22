@@ -1,7 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/user.interface';
 import {
+  catchError,
+  EMPTY,
   finalize,
   Observable,
   shareReplay,
@@ -41,6 +43,7 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 export class ProfileComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
 
   user!: Observable<User>;
   showSkeleton: boolean = false;
@@ -65,6 +68,11 @@ export class ProfileComponent implements OnInit {
           tap(() => {
             this.showSkeleton = false;
             dataStatus.next();
+          }),
+          catchError((err) => {
+            this.showSkeleton = false;
+            this.router.navigate(['/404']); // TODO: proper route
+            return EMPTY;
           }),
           finalize(() => {
             dataStatus.complete();

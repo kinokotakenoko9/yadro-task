@@ -1,6 +1,6 @@
 <nz-flex nzVertical="true" nzGap="small">
     <nz-flex nzJustify="end" nzAlign="center" nzGap="large">
-        <a nz-button nzType="primary" href="#">create</a>
+        <a nz-button nzType="primary" [routerLink]="['/users/create']">create</a>
         <nz-input-group [nzSuffix]="suffixIconSearch" style="width:200px">
             <input type="text" nz-input placeholder="search user" [value]="searchQuery"
                 (input)="onSearchInputChange($event)" />
@@ -34,8 +34,11 @@
                 </nz-list-item-meta>
 
                 <ul nz-list-item-actions>
-                    <nz-list-item-action><a>edit</a></nz-list-item-action>
-                    <nz-list-item-action><a>delete</a></nz-list-item-action>
+                    <nz-list-item-action><a [routerLink]="['/users', user.id, 'edit']">edit</a></nz-list-item-action>
+                    <nz-list-item-action>
+                        <button nz-button nzType="link" nzDanger
+                            (click)="showDeleteConfirm(user.id, user.name)">delete</button>
+                    </nz-list-item-action>
                 </ul>
             </ng-container>
         </nz-list-item>

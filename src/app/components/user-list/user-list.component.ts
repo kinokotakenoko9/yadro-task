@@ -10,6 +10,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { debounceTime, Subject } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-user-list',
@@ -21,12 +23,13 @@ import { RouterLink } from '@angular/router';
     NzIconModule,
     NzDropDownModule,
     NzButtonModule,
+    NzModalModule,
     RouterLink,
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
   private readonly userService = inject(UserService);
   users: User[] = [];
   filteredUsers: User[] = [];
@@ -34,6 +37,9 @@ export class UserListComponent implements OnInit {
   selectedDropdownItem: string = 'name';
   searchQuery: string = '';
   private searchTerms = new Subject<string>();
+
+  private readonly modal = inject(NzModalService);
+  private readonly message = inject(NzMessageService);
 
   ngOnInit() {
     this.userService.getAll().subscribe((data) => {
@@ -73,6 +79,29 @@ export class UserListComponent implements OnInit {
       }
 
       return false;
+    });
+  }
+
+  showDeleteConfirm(userId: number, userName: string): void {
+    this.modal.confirm({
+      nzTitle: `Are you sure you want to delete <b>${userName}</b>?`,
+      nzContent: '<b>This action cannot be undone</b>',
+      nzOkText: 'Delete',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzCancelText: 'Cancel',
+      nzOnOk: () => {
+        this.userService.delete(userId).subscribe({
+          next: () => {
+            this.users = this.users.filter((u) => u.id !== userId);
+            this.applyFilter();
+            this.message.success(`User '${userName}' deleted successfully`);
+          },
+          error: (err) => {
+            this.message.error(`Failed to delete user '${userName}'`);
+          },
+        });
+      },
     });
   }
 }
