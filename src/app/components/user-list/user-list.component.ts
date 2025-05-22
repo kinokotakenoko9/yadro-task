@@ -12,6 +12,7 @@ import { debounceTime, Subject } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
   selector: 'app-user-list',
@@ -24,6 +25,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     NzDropDownModule,
     NzButtonModule,
     NzModalModule,
+    NzPaginationModule,
     RouterLink,
   ],
   templateUrl: './user-list.component.html',
@@ -33,6 +35,10 @@ export class UserListComponent {
   private readonly userService = inject(UserService);
   users: User[] = [];
   filteredUsers: User[] = [];
+  paginatedUsers: User[] = [];
+
+  pageIndex: number = 1;
+  pageSize: number = 6;
 
   selectedDropdownItem: string = 'name';
   searchQuery: string = '';
@@ -54,32 +60,45 @@ export class UserListComponent {
 
   onMenuItemClick(item: string): void {
     this.selectedDropdownItem = item;
+    this.pageIndex = 1;
     this.applyFilter();
   }
 
   onSearchInputChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     this.searchQuery = inputElement.value.toLowerCase();
+    this.pageIndex = 1;
     this.searchTerms.next(this.searchQuery);
   }
 
   applyFilter(): void {
-    if (!this.searchQuery) {
-      this.filteredUsers = [...this.users];
-      return;
+    let tempUsers = [...this.users];
+
+    if (this.searchQuery) {
+      tempUsers = tempUsers.filter((user) => {
+        const searchValue = this.searchQuery;
+
+        if (this.selectedDropdownItem === 'name') {
+          return user.name.toLowerCase().includes(searchValue);
+        } else if (this.selectedDropdownItem === 'email') {
+          return user.email.toLowerCase().includes(searchValue);
+        }
+        return false;
+      });
     }
+    this.filteredUsers = tempUsers;
+    this.paginateUsers();
+  }
 
-    this.filteredUsers = this.users.filter((user) => {
-      const searchValue = this.searchQuery;
+  paginateUsers(): void {
+    const startIndex = (this.pageIndex - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
+  }
 
-      if (this.selectedDropdownItem === 'name') {
-        return user.name.toLowerCase().includes(searchValue);
-      } else if (this.selectedDropdownItem === 'email') {
-        return user.email.toLowerCase().includes(searchValue);
-      }
-
-      return false;
-    });
+  onPageIndexChange(index: number): void {
+    this.pageIndex = index;
+    this.paginateUsers();
   }
 
   showDeleteConfirm(userId: number, userName: string): void {
