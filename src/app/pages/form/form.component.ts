@@ -11,7 +11,7 @@ import { catchError, EMPTY, Observable, Subject, switchMap } from 'rxjs';
 import { User } from '../../models/user.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -34,6 +34,7 @@ export class FormComponent {
   private readonly userService = inject(UserService);
   private readonly message = inject(NzMessageService);
   private readonly router = inject(Router);
+  private readonly location = inject(Location);
 
   user!: Observable<User>;
 
@@ -65,6 +66,6 @@ export class FormComponent {
   }
 
   formCancelled() {
-    this.router.navigate(['/users']);
+    this.location.back();
   }
 }
