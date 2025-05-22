@@ -1,0 +1,21 @@
+<nz-list nzBordered>
+    @for (user of users; track user.id) {
+    <nz-list-item>
+        <ng-container>
+            <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                    <a href="https://ng.ant.design">{{ user.name }}</a>
+                </nz-list-item-meta-title>
+                <nz-list-item-meta-description>
+                    {{ user.email }}
+                </nz-list-item-meta-description>
+            </nz-list-item-meta>
+
+            <ul nz-list-item-actions>
+                <nz-list-item-action><a>edit</a></nz-list-item-action>
+                <nz-list-item-action><a>delete</a></nz-list-item-action>
+            </ul>
+        </ng-container>
+    </nz-list-item>
+    }
+</nz-list>

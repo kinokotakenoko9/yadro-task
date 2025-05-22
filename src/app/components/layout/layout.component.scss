@@ -1,0 +1,16 @@
+nz-layout {
+    min-height: 100vh;
+    background-color: #fff;
+}
+
+nz-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    margin: 40px 80px;
+}
+
+nz-content>nz-flex {
+    width: 100%;
+}

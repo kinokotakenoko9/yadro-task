@@ -1,20 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { UserService } from '../../services/user/user.service';
-import { User } from '../../models/user.interface';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { UserListComponent } from '../../components/user-list/user-list.component';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [NzButtonModule, UserListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
-  private readonly userService = inject(UserService);
-  users: User[] = [];
-
-  ngOnInit() {
-    this.userService.getAll().subscribe((data) => {
-      this.users = data;
-    });
-  }
-}
+export class HomeComponent {}
