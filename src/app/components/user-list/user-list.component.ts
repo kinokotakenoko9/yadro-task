@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/user.interface';
 import { NzListModule } from 'ng-zorro-antd/list';
@@ -7,8 +7,9 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzButtonComponent, NzButtonModule } from 'ng-zorro-antd/button';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { debounceTime, Subject } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -20,11 +21,12 @@ import { debounceTime, Subject } from 'rxjs';
     NzIconModule,
     NzDropDownModule,
     NzButtonModule,
+    RouterLink,
   ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
 })
-export class UserListComponent {
+export class UserListComponent implements OnInit {
   private readonly userService = inject(UserService);
   users: User[] = [];
   filteredUsers: User[] = [];

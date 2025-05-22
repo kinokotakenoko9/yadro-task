@@ -1,0 +1,44 @@
+<ng-container>
+    <nz-flex nzGap="large" nzJustify="center">
+        @if (user | async; as currentUser) {
+        <nz-avatar nzIcon="user" nzSize="large" class="mr-4"
+            [nzSrc]="'https://i.pravatar.cc/150?img=' + currentUser.id">
+        </nz-avatar>
+        <nz-flex nzAlign="center" class="title">
+            {{ currentUser.name }}
+        </nz-flex>
+        } @else if (showSkeleton) {
+        <nz-flex nzJusify="center">
+            <nz-skeleton [nzAvatar]="true" [nzActive]="true"></nz-skeleton>
+        </nz-flex>
+        }
+    </nz-flex>
+    @if (user | async; as currentUser) {
+    <nz-descriptions [nzColumn]="2" nzTitle="Personal">
+        <nz-descriptions-item nzTitle="Full Name" [nzSpan]="1">{{currentUser.name}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="City" [nzSpan]="1">{{currentUser.address.city}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Street" [nzSpan]="1">{{currentUser.address.street}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Website" [nzSpan]="1">{{currentUser.website}}</nz-descriptions-item>
+    </nz-descriptions>
+    <nz-divider></nz-divider>
+    <nz-descriptions [nzColumn]="2" nzTitle="Company">
+        <nz-descriptions-item nzTitle="Company Name" [nzSpan]="1">{{currentUser.company.name}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Catch Phrase"
+            [nzSpan]="1">{{currentUser.company.catchPhrase}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Business Slogan" [nzSpan]="1">{{currentUser.company.bs}}</nz-descriptions-item>
+    </nz-descriptions>
+    <nz-divider></nz-divider>
+    <nz-descriptions [nzColumn]="2" nzTitle="Contacts">
+        <nz-descriptions-item nzTitle="Email" [nzSpan]="1">{{currentUser.email}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Phone Number" [nzSpan]="1">+{{currentUser.phone}}</nz-descriptions-item>
+    </nz-descriptions>
+    } @else if (showSkeleton) {
+    <nz-skeleton [nzParagraph]="{ rows: 1, width: ['10%'] }" [nzActive]="true"></nz-skeleton>
+    <nz-skeleton [nzParagraph]="{ rows: 4, width: ['100%'] }" [nzActive]="true"></nz-skeleton>
+    <nz-skeleton [nzParagraph]="{ rows: 1, width: ['10%'] }" [nzActive]="true"></nz-skeleton>
+    <nz-skeleton [nzParagraph]="{ rows: 4, width: ['100%'] }" [nzActive]="true"></nz-skeleton>
+    <nz-skeleton [nzParagraph]="{ rows: 1, width: ['10%'] }" [nzActive]="true"></nz-skeleton>
+    <nz-skeleton [nzParagraph]="{ rows: 4, width: ['100%'] }" [nzActive]="true"></nz-skeleton>
+    }
+
+</ng-container>
