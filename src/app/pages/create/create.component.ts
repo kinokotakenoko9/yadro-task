@@ -4,6 +4,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/user.interface';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-create',
@@ -15,6 +16,7 @@ export class CreateComponent {
   private readonly message = inject(NzMessageService);
   private readonly router = inject(Router);
   private readonly userService = inject(UserService);
+  private readonly location = inject(Location);
 
   formSubmitted(newUser: User) {
     this.userService.create(newUser).subscribe({
@@ -29,6 +31,6 @@ export class CreateComponent {
   }
 
   formCancelled() {
-    this.router.navigate(['/users']);
+    this.location.back();
   }
 }
