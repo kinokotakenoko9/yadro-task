@@ -7,23 +7,7 @@
                               <nz-breadcrumb-item>App</nz-breadcrumb-item>
                         </nz-breadcrumb>
                         <nz-space style="flex-grow: 1;"></nz-space>
-                        <a nz-button nzType="primary" href="#">create</a>
-                        <nz-input-group [nzSuffix]="suffixIconSearch" style="width:200px">
-                              <input type="text" nz-input placeholder="search user" />
-                        </nz-input-group>
-                        <ng-template #suffixIconSearch>
-                              <nz-icon nzType="search" />
-                        </ng-template>
-                        <button nz-button nz-dropdown [nzDropdownMenu]="menu" style="min-width: 90px;">
-                              {{ selectedDropdownItem }}
-                              <nz-icon nzType="down" />
-                        </button>
-                        <nz-dropdown-menu #menu="nzDropdownMenu">
-                              <ul nz-menu>
-                                    <li nz-menu-item (click)="onMenuItemClick('name')">name</li>
-                                    <li nz-menu-item (click)="onMenuItemClick('email')">email</li>
-                              </ul>
-                        </nz-dropdown-menu>
+                        <span nz-typography><strong>Yadro Test App</strong></span>
                   </nz-flex>
                   <router-outlet></router-outlet>
             </nz-flex>

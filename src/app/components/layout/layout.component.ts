@@ -27,10 +27,4 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
-export class LayoutComponent {
-  selectedDropdownItem: string = 'name';
-
-  onMenuItemClick(item: string): void {
-    this.selectedDropdownItem = item;
-  }
-}
+export class LayoutComponent {}
