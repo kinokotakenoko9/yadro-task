@@ -35,7 +35,10 @@
 
                 <ul nz-list-item-actions>
                     <nz-list-item-action><a>edit</a></nz-list-item-action>
-                    <nz-list-item-action><a>delete</a></nz-list-item-action>
+                    <nz-list-item-action>
+                        <button nz-button nzType="link" nzDanger
+                            (click)="showDeleteConfirm(user.id, user.name)">delete</button>
+                    </nz-list-item-action>
                 </ul>
             </ng-container>
         </nz-list-item>
