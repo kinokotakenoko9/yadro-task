@@ -1,12 +1,29 @@
 <nz-layout>
       <nz-content>
             <nz-flex nzVertical="true" nzGap="small">
-                  <nz-flex nzJustify="space-between" nzAlign="center">
+                  <nz-flex nzJustify="start" nzAlign="center" nzGap="large">
                         <nz-breadcrumb>
                               <nz-breadcrumb-item>Home</nz-breadcrumb-item>
                               <nz-breadcrumb-item>App</nz-breadcrumb-item>
                         </nz-breadcrumb>
-                        <a nz-button href="#">create</a>
+                        <nz-space style="flex-grow: 1;"></nz-space>
+                        <a nz-button nzType="primary" href="#">create</a>
+                        <nz-input-group [nzSuffix]="suffixIconSearch" style="width:200px">
+                              <input type="text" nz-input placeholder="search user" />
+                        </nz-input-group>
+                        <ng-template #suffixIconSearch>
+                              <nz-icon nzType="search" />
+                        </ng-template>
+                        <button nz-button nz-dropdown [nzDropdownMenu]="menu" style="min-width: 90px;">
+                              {{ selectedDropdownItem }}
+                              <nz-icon nzType="down" />
+                        </button>
+                        <nz-dropdown-menu #menu="nzDropdownMenu">
+                              <ul nz-menu>
+                                    <li nz-menu-item (click)="onMenuItemClick('name')">name</li>
+                                    <li nz-menu-item (click)="onMenuItemClick('email')">email</li>
+                              </ul>
+                        </nz-dropdown-menu>
                   </nz-flex>
                   <router-outlet></router-outlet>
             </nz-flex>
